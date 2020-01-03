@@ -28,7 +28,7 @@ const BaseLink = ({href, as, ...rest}) => {
         // => <a href="https://gateway.ipfs.io/ipfs/Qm<hash>/about">About</a>
       }
     }
-    return baseURIAs
+    return baseURI_as
   }, [as, href])
 
   return <Link {...rest} href={href} as={newAs} />

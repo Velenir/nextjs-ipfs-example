@@ -88,7 +88,16 @@ const BaseLink = ({href, as, ...rest}) => {
 
 This way a `<BaseLink href="/about">` would lead to `https://gateway.ipfs.io/ipfs/Qm<hash>/about` when clicked.
 
-As IPFS doesn't support automatic redirect to idex for 404 routes, which is commonly employed when hosting SPA, one may want `/about` route to lead to `https://gateway.ipfs.io/ipfs/Qm<hash>/about.html` file if that file was statically compiled. In that case there will be need for further **baseURI_as** modification beyond simple `baseURI_as += '.html'` if there's need to preserve hash and search queries, for example.
+As IPFS doesn't support automatic redirect to index for 404 routes, which is commonly employed when hosting SPA, one may want `/about` route to lead to `https://gateway.ipfs.io/ipfs/Qm<hash>/about.html` file if that file was statically compiled. In that case there will be need for further **baseURI_as** modification beyond simple `baseURI_as += '.html'` if there's need to preserve hash and search queries, for example.
+
+Or better yet use `exportTrailingSlash: true` in `next.config.js`. Then `pages/about.js` will be compiled to `out/about/index.html` and `/about` route will be available at `https://gateway.ipfs.io/ipfs/Qm<hash>/about/` which will survide page reloads without need for redirect to index for 404 routes:
+
+```js
+module.exports = {
+  assetPrefix: './',
+  exportTrailingSlash: true,
+}
+```
 
 5. Build and export html files
 
